@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import DATABASES as DATABASES
+from networkx.release import url
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -40,8 +43,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'storages',
 
-
-
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -58,7 +59,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'MathLegend.urls'
-
 
 TEMPLATES = [
     {
@@ -81,7 +81,10 @@ WSGI_APPLICATION = 'MathLegend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+import dj_database_url
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 DATABASES = {
     'default': {
@@ -152,8 +155,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'plugins': "media",
 }
 
-
-#S3 BUCKETS CONFIG
+# S3 BUCKETS CONFIG
 
 AWS_ACCESS_KEY_ID = 'AKIA6CDGOGYTD2W2HSEJ'
 AWS_SECRET_ACCESS_KEY = '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'
@@ -162,8 +164,6 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-
 
 '''
 <?xml version="1.0" encoding="UTF-8"?>
